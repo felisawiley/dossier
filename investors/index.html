@@ -832,40 +832,52 @@
   pageFlip.loadFromHTML(document.querySelectorAll('#book .page'));
 
   const total = pageFlip.getPageCount();
+  const FLIP_MS = 520;
   let busy = false;
   let pending = 0; // queued turns: +next / -prev
+  let busyTimer = null;
 
   function updateUI(pageIndex) {
-    const projected = pageIndex + pending;
+    const projected = Math.max(0, Math.min(total - 1, pageIndex + pending));
     indicator.textContent = String(pageIndex + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
     prevBtn.disabled = projected <= 0;
     nextBtn.disabled = projected >= total - 1;
     if (pageIndex > 0) hint.classList.add('is-hidden');
   }
 
+  function armBusyWatch() {
+    clearTimeout(busyTimer);
+    busyTimer = setTimeout(() => {
+      if (!busy) return;
+      busy = false;
+      updateUI(pageFlip.getCurrentPageIndex());
+      drainQueue();
+    }, FLIP_MS + 180);
+  }
+
   function drainQueue() {
     if (busy || pending === 0) return;
 
-    // Catch up instantly if several taps stacked, then animate the last step
-    while (Math.abs(pending) > 1) {
-      if (pending > 0) {
-        pageFlip.turnToNextPage();
-        pending--;
-      } else {
-        pageFlip.turnToPrevPage();
-        pending++;
-      }
+    const pageIndex = pageFlip.getCurrentPageIndex();
+    if (pending > 0 && pageIndex >= total - 1) {
+      pending = 0;
+      updateUI(pageIndex);
+      return;
+    }
+    if (pending < 0 && pageIndex <= 0) {
+      pending = 0;
+      updateUI(pageIndex);
+      return;
     }
 
     busy = true;
+    armBusyWatch();
     if (pending > 0) {
       pending--;
       pageFlip.flipNext();
-    } else if (pending < 0) {
+    } else {
       pending++;
       pageFlip.flipPrev();
-    } else {
-      busy = false;
     }
     updateUI(pageFlip.getCurrentPageIndex());
   }
@@ -873,46 +885,39 @@
   function goNext() {
     const pageIndex = pageFlip.getCurrentPageIndex();
     if (pageIndex + pending >= total - 1) return;
-    if (busy) {
-      pending++;
-      updateUI(pageIndex);
-      return;
-    }
-    busy = true;
-    pageFlip.flipNext();
+    if (pending >= 2) return;
+    pending++;
+    updateUI(pageIndex);
+    drainQueue();
   }
 
   function goPrev() {
     const pageIndex = pageFlip.getCurrentPageIndex();
     if (pageIndex + pending <= 0) return;
-    if (busy) {
-      pending--;
-      updateUI(pageIndex);
-      return;
-    }
-    busy = true;
-    pageFlip.flipPrev();
+    if (pending <= -2) return;
+    pending--;
+    updateUI(pageIndex);
+    drainQueue();
   }
 
   pageFlip.on('init', (e) => {
     busy = false;
     pending = 0;
+    clearTimeout(busyTimer);
     updateUI(e.data.page);
   });
 
   pageFlip.on('flip', (e) => {
     busy = false;
+    clearTimeout(busyTimer);
     updateUI(e.data);
     drainQueue();
   });
 
   pageFlip.on('changeState', (e) => {
-    if (e.data === 'read') {
-      busy = false;
-      updateUI(pageFlip.getCurrentPageIndex());
-      drainQueue();
-    } else if (e.data === 'flipping') {
+    if (e.data === 'flipping') {
       busy = true;
+      armBusyWatch();
     }
   });
 

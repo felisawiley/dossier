@@ -438,6 +438,19 @@
     font-size: clamp(18px, 2.7vh, 25px);
     line-height: 1.2;
   }
+  .page-inner.is-close {
+    align-items: center;
+    text-align: center;
+  }
+  .page-inner.is-close .page-body {
+    align-items: center;
+    width: 100%;
+  }
+  .close-brand {
+    font-size: clamp(11px, 1.4vh, 12px);
+    letter-spacing: 0.1em;
+    color: #9a968c;
+  }
   .close-email {
     display: inline-block;
     margin-top: clamp(14px, 2vh, 20px);
@@ -756,14 +769,11 @@
 
         <!-- Page 13: Close -->
         <div class="page dark" data-density="hard">
-          <div class="page-inner is-splash">
+          <div class="page-inner is-splash is-close">
             <div class="page-body">
               <p class="display close-line" style="color:var(--paper); margin-bottom:6px;">The creator economy grew up.</p>
               <p class="display close-line" style="color:var(--pink); margin-bottom: clamp(18px, 2.4vh, 26px);">It's time its back office did too.</p>
-              <div style="display:flex; align-items:center; gap:10px;">
-                <div class="cover-seal" style="width:34px; height:34px; font-size:14px; margin-bottom:0;">✓</div>
-                <span class="mono" style="font-size:clamp(11px,1.4vh,12px); letter-spacing:0.1em; color:#9a968c;">DOSSIER &nbsp;·&nbsp; FOR CREATORS</span>
-              </div>
+              <span class="mono close-brand">DOSSIER &nbsp;·&nbsp; FOR CREATORS</span>
               <a class="close-email mono" href="mailto:info@thedoss.io">info@thedoss.io</a>
             </div>
           </div>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /creators/
+Disallow: /investors/
+Disallow: /WAITLIST-SETUP.md
+
+Sitemap: https://felisawiley.github.io/dossier/sitemap.xml

@@ -10,8 +10,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dossier | for creators</title>
-<meta name="description" content="Join the Dossier waitlist. Rate intelligence, deal tracking, and a media kit built to prove your numbers.">
+<title>Join the Dossier Waitlist | Creator Rate Cards & Media Kits</title>
+<meta name="description" content="Join the Dossier waitlist for early access to creator rate intelligence, sponsorship deal tracking, and a verified media kit brands can trust.">
+<meta name="keywords" content="creator waitlist, creator media kit, influencer rate card, sponsorship rates, creator deal tracker, verified media kit">
+<meta name="author" content="Dossier">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="theme-color" content="#F5F1EA">
+<link rel="canonical" href="https://felisawiley.github.io/dossier/creators/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dossier">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://felisawiley.github.io/dossier/creators/">
+<meta property="og:title" content="Join the Dossier Waitlist | Creator Rate Cards & Media Kits">
+<meta property="og:description" content="Get first access to Dossier: benchmarked creator rates, brand deal tracking, and one verified media kit.">
+<meta property="og:image" content="https://felisawiley.github.io/dossier/assets/product-shot.jpg">
+<meta property="og:image:alt" content="Dossier verified creator media kit product preview">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Join the Dossier Waitlist">
+<meta name="twitter:description" content="Creator rate cards, deal tracking, and a media kit built to prove your numbers. First access when it's ready.">
+<meta name="twitter:image" content="https://felisawiley.github.io/dossier/assets/product-shot.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Dossier Creator Waitlist",
+  "url": "https://felisawiley.github.io/dossier/creators/",
+  "description": "Join the Dossier waitlist for creator rate intelligence, deal tracking, and verified media kits.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Dossier",
+    "url": "https://felisawiley.github.io/dossier/"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "Dossier",
+    "applicationCategory": "BusinessApplication",
+    "description": "Rate benchmarking, sponsorship pipelines, and shareable media kits for creators."
+  },
+  "potentialAction": {
+    "@type": "JoinAction",
+    "name": "Join the Dossier waitlist",
+    "target": "https://felisawiley.github.io/dossier/creators/"
+  }
+}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap');
   :root { --paper:#F5F1EA; --card:#FFFFFF; --ink:#1B1B1F; --pink:#FF2D78; --gold:#E8B930; --muted:#6B6860; }
@@ -172,9 +217,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     letter-spacing: 0.04em;
     flex-shrink: 0;
   }
+  .seo-blurb {
+    max-width: 380px;
+    margin-top: clamp(10px, 1.6vh, 14px);
+    font-size: clamp(11px, 1.45vh, 12px);
+    color: #8a867c;
+    text-align: center;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  main.waitlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 
   @media (max-height: 640px) {
-    p.lead { display: none; }
+    p.lead,
+    .seo-blurb { display: none; }
   }
 </style>
 </head>
@@ -184,55 +245,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-  <a class="brand-link" href="../" aria-label="Back to Dossier home">
-    <div class="seal">✓</div>
-    <h1 class="wordmark display"><span>Dossier</span></h1>
-    <div class="tag mono">for creators</div>
-  </a>
-  <p class="lead">Rate intelligence, deal tracking, and a media kit built to prove your numbers. Join the waitlist, first access when it's ready.</p>
+  <main class="waitlist">
+    <a class="brand-link" href="../" aria-label="Back to Dossier home">
+      <div class="seal" aria-hidden="true">✓</div>
+      <h1 class="wordmark display"><span>Dossier</span></h1>
+      <p class="tag mono">for creators</p>
+    </a>
+    <p class="lead">Join the waitlist for Dossier: creator rate benchmarking, sponsorship deal tracking, and a verified media kit that proves your numbers. Early access when it's ready.</p>
 
-  <form id="waitlistForm" novalidate>
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      required
-      autocomplete="email"
-      inputmode="email"
-      placeholder="you@email.com"
-      maxlength="254"
-    >
-    <div class="field-error" id="emailError">Enter a valid email address.</div>
+    <form id="waitlistForm" novalidate aria-label="Dossier creator waitlist signup">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder="you@email.com"
+        maxlength="254"
+      >
+      <div class="field-error" id="emailError">Enter a valid email address.</div>
 
-    <label for="location">Location</label>
-    <input type="text" id="location" name="location" required placeholder="City, Country" maxlength="120">
-    <div class="field-error" id="locationError">Enter your city and country.</div>
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required placeholder="City, Country" maxlength="120" autocomplete="address-level2">
+      <div class="field-error" id="locationError">Enter your city and country.</div>
 
-    <label for="followers">Follower count (approx.)</label>
-    <input
-      type="text"
-      id="followers"
-      name="followers"
-      required
-      inputmode="numeric"
-      pattern="[0-9]+"
-      placeholder="e.g. 24000"
-      maxlength="10"
-      autocomplete="off"
-    >
-    <div class="field-error" id="followersError">Use numbers only, no commas.</div>
+      <label for="followers">Follower count (approx.)</label>
+      <input
+        type="text"
+        id="followers"
+        name="followers"
+        required
+        inputmode="numeric"
+        pattern="[0-9]+"
+        placeholder="e.g. 24000"
+        maxlength="10"
+        autocomplete="off"
+      >
+      <div class="field-error" id="followersError">Use numbers only, no commas.</div>
 
-    <button type="submit" id="submitBtn">Join the waitlist →</button>
-  </form>
+      <button type="submit" id="submitBtn">Join the waitlist →</button>
+    </form>
 
-  <div class="success" id="successMsg">
-    <div class="seal">✓</div>
-    <h2 class="display">You're on the list.</h2>
-    <p>We'll be in touch when it's ready.</p>
-  </div>
+    <div class="success" id="successMsg" role="status" aria-live="polite">
+      <div class="seal" aria-hidden="true">✓</div>
+      <h2 class="display">You're on the list.</h2>
+      <p>We'll be in touch when Dossier is ready for creators.</p>
+    </div>
 
-  <a class="back mono" href="../">← Back to Dossier</a>
+    <p class="seo-blurb">Built for newsletter writers, YouTubers, podcasters, and multi-platform creators who need clearer rates and cleaner brand negotiations.</p>
+    <a class="back mono" href="../">← Back to Dossier</a>
+  </main>
 
 <script>
   // Deployed Google Apps Script Web App URL

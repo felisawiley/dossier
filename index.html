@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KT2FWX8P');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossier | Media kits & deal tracking for creators</title>
+<meta name="description" content="Rate intelligence, deal tracking, and a media kit built to prove your numbers. Dossier for creators.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --paper: #F5F1EA;
+    --card: #FFFFFF;
+    --ink: #1B1B1F;
+    --pink: #FF2D78;
+    --gold: #E8B930;
+    --muted: #6B6860;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .display { font-family: 'Space Grotesk', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(12px, 2.4vh, 28px) 24px;
+  }
+
+  .seal {
+    width: clamp(36px, 5.5vh, 52px);
+    height: clamp(36px, 5.5vh, 52px);
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px dashed rgba(27,27,31,0.3);
+    margin-bottom: clamp(10px, 1.8vh, 18px);
+    font-size: clamp(16px, 2.4vh, 22px);
+    font-weight: 700;
+  }
+
+  h1.wordmark {
+    font-size: clamp(42px, 9vh, 96px);
+    line-height: 1.1;
+    margin-bottom: clamp(10px, 1.6vh, 18px);
+  }
+  h1.wordmark span {
+    background: var(--pink);
+    color: #fff;
+    padding: 2px 16px;
+    display: inline-block;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: clamp(11px, 1.5vh, 13px);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    font-weight: 700;
+    padding: 6px 14px;
+    margin-bottom: clamp(12px, 2vh, 20px);
+  }
+
+  .tagline {
+    font-size: clamp(16px, 2.6vh, 26px);
+    font-weight: 500;
+    max-width: 620px;
+    margin-bottom: clamp(8px, 1.2vh, 12px);
+  }
+
+  .sub {
+    font-size: clamp(13px, 1.8vh, 16px);
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.4;
+    margin-bottom: clamp(18px, 3.2vh, 36px);
+  }
+
+  .paths {
+    display: flex;
+    gap: clamp(12px, 2vh, 20px);
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 720px;
+    width: 100%;
+  }
+
+  .path-card {
+    background: var(--card);
+    width: 280px;
+    padding: clamp(18px, 2.6vh, 28px) clamp(18px, 2vw, 26px);
+    text-align: left;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 10px 24px rgba(27,27,31,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: block;
+  }
+  .path-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(27,27,31,0.12);
+  }
+  .path-card .eyebrow {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pink); font-weight: 700;
+    margin-bottom: clamp(6px, 1vh, 10px);
+  }
+  .path-card h2 {
+    font-size: clamp(18px, 2.4vh, 22px);
+    font-weight: 700;
+    margin-bottom: clamp(6px, 1vh, 10px);
+  }
+  .path-card p {
+    font-size: clamp(12px, 1.6vh, 13.5px);
+    color: var(--muted);
+    line-height: 1.45;
+    margin-bottom: clamp(10px, 1.6vh, 16px);
+  }
+  .path-card .go {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .path-card.creators .go { color: var(--pink); }
+  .path-card.investors .go { color: var(--ink); }
+
+  footer {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: clamp(10px, 1.6vh, 18px);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    .paths { flex-direction: column; align-items: center; }
+    .path-card { width: min(100%, 320px); }
+  }
+
+  @media (max-height: 700px) {
+    .path-card p { display: none; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2FWX8P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <div class="wrap">
+    <div class="seal">✓</div>
+    <h1 class="wordmark display"><span>Dossier</span></h1>
+    <div class="tag mono">for creators</div>
+    <p class="tagline display">The receipts brands can't argue with.</p>
+    <p class="sub">Rate intelligence, deal tracking, and a media kit built to prove your numbers, not just show them off.</p>
+
+    <div class="paths">
+      <a class="path-card creators" href="creators.html">
+        <div class="eyebrow mono">Creators</div>
+        <h2 class="display">Get your receipts</h2>
+        <p>Know your worth, track every deal, and share one file a brand can trust.</p>
+        <span class="go">Join the waitlist →</span>
+      </a>
+      <a class="path-card investors" href="investors.html">
+        <div class="eyebrow mono">Investors</div>
+        <h2 class="display">The file, for you</h2>
+        <p>The market, the model, and the plan, laid out page by page.</p>
+        <span class="go">Open the file →</span>
+      </a>
+    </div>
+  </div>
+
+  <footer class="mono">VERIFIED &nbsp;·&nbsp; DOSSIER FOR CREATORS &nbsp;·&nbsp; 2026</footer>
+
+</body>
+</html>

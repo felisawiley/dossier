@@ -317,6 +317,37 @@
   .pillar b { display: block; font-size: clamp(13px, 1.65vh, 14.5px); margin-bottom: 3px; }
   .pillar span { font-size: clamp(11.5px, 1.45vh, 12.5px); color: var(--muted); line-height: 1.35; }
 
+  @media (max-width: 640px) {
+    .page-solution .page-header {
+      margin-bottom: 14px;
+    }
+    .page-solution .page-body {
+      justify-content: flex-start;
+      gap: 10px;
+      padding-bottom: 14px;
+    }
+    .page-solution .pillars {
+      gap: 8px;
+    }
+    .page-solution .pillar {
+      padding: 10px 10px;
+    }
+    .page-solution .pillar .picn {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .page-solution .pillar b {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+    .page-solution .pillar span {
+      font-size: 10px;
+      line-height: 1.25;
+    }
+  }
+
   .receipt-img {
     width: 100%;
     max-width: min(220px, 42vw);
@@ -575,7 +606,7 @@
         </div>
 
         <!-- Page 4: Solution -->
-        <div class="page">
+        <div class="page page-solution">
           <div class="page-inner">
             <header class="page-header">
               <div class="eyebrow mono">02 · The Solution</div>
@@ -583,9 +614,9 @@
             </header>
             <div class="page-body">
               <div class="pillars">
-                <div class="pillar"><div class="picn">📈</div><b>Rate intelligence</b><span>One true number for reach and engagement, pulled from every platform, not a guess.</span></div>
-                <div class="pillar"><div class="picn">🗃️</div><b>Deal pipeline</b><span>Every brand conversation tracked, plus a full history of every deal ever done.</span></div>
-                <div class="pillar"><div class="picn">🪪</div><b>Media kit</b><span>One shareable file a brand can open and trust: proof, not a pitch.</span></div>
+                <div class="pillar"><div class="picn">📈</div><b>Rate intelligence</b><span>One trusted rate signal from real platform data.</span></div>
+                <div class="pillar"><div class="picn">🗃️</div><b>Deal pipeline</b><span>Track every brand conversation and closed deal.</span></div>
+                <div class="pillar"><div class="picn">🪪</div><b>Media kit</b><span>One shareable file brands can trust instantly.</span></div>
               </div>
             </div>
           </div>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KT2FWX8P');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dossier | Investor Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --paper: #F5F1EA;
+    --card: #FFFFFF;
+    --ink: #1B1B1F;
+    --pink: #FF2D78;
+    --gold: #E8B930;
+    --muted: #6B6860;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 18%, rgba(255,255,255,0.55), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 70% 90%, rgba(232,185,48,0.08), transparent 50%),
+      var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 72px 16px 28px;
+  }
+  .display { font-family: 'Space Grotesk', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    z-index: 100;
+  }
+  .topbar a {
+    color: var(--muted); text-decoration: none; font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  }
+  .topbar .badge {
+    color: var(--muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  @media (max-width: 560px) {
+    .topbar .badge { display: none; }
+  }
+
+  .viewer {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    align-items: center;
+    justify-items: center;
+    gap: 14px;
+    width: min(680px, 92vw);
+    height: calc(100vh - 100px);
+    max-height: 920px;
+  }
+
+  .stage {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .stage::after {
+    content: '';
+    position: absolute;
+    left: 10%; right: 10%; bottom: 2%; height: 24px;
+    background: radial-gradient(ellipse at center, rgba(27,27,31,0.2), transparent 70%);
+    filter: blur(5px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  #book {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* StPageFlip page shells */
+  .page {
+    background: var(--paper);
+    box-shadow: 0 0 0 1px rgba(27,27,31,0.06);
+    overflow: hidden;
+    container-type: size;
+  }
+  .page.dark { background: var(--ink); }
+
+  .page-inner {
+    height: 100%;
+    padding: clamp(26px, 4vh, 42px) clamp(22px, 3.4vw, 40px);
+    padding-left: calc(clamp(22px, 3.4vw, 40px) + 6px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background:
+      linear-gradient(to right, rgba(27,27,31,0.08), rgba(27,27,31,0.02) 12px, transparent 24px),
+      linear-gradient(105deg, rgba(255,255,255,0.28) 0%, transparent 30%),
+      var(--paper);
+  }
+  .page.dark .page-inner {
+    background:
+      linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0.1) 12px, transparent 24px),
+      linear-gradient(105deg, rgba(255,255,255,0.05) 0%, transparent 30%),
+      var(--ink);
+  }
+
+  /* Number + title: always top-left, same stack on every interior page */
+  .page-header {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(10px, 1.5vh, 14px);
+    margin-bottom: clamp(8px, 1.2vh, 14px);
+  }
+  .page-header .eyebrow {
+    font-size: clamp(10px, 1.3vh, 11px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+    margin: 0;
+  }
+  .page-header .ptitle {
+    font-size: clamp(18px, 2.6vh, 24px);
+    font-weight: 700;
+    line-height: 1.18;
+    margin: 0;
+    letter-spacing: -0.01em;
+    max-width: 100%;
+  }
+
+  /* Body sits centered under the pinned header; footnotes stay on the floor */
+  .page-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(20px, 3.2vh, 32px);
+  }
+  .page-body > * { flex-shrink: 0; }
+
+  .after-title {
+    margin-top: clamp(2px, 0.4vh, 6px);
+  }
+  .product-shot {
+    margin-top: clamp(8px, 1.2vh, 14px);
+    margin-bottom: clamp(8px, 1.2vh, 14px);
+  }
+
+  .page-inner.is-splash {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .eyebrow {
+    font-size: clamp(10px, 1.35vh, 11px);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+  .page.dark .eyebrow { color: var(--gold); }
+  h2.ptitle {
+    font-size: clamp(18px, 2.7vh, 25px);
+    font-weight: 700;
+    line-height: 1.18;
+    margin-bottom: 0;
+    letter-spacing: -0.01em;
+  }
+  .page.dark h2.ptitle, .page.dark p, .page.dark .body-text { color: var(--paper); }
+  p.sub {
+    font-size: clamp(12px, 1.55vh, 14px);
+    color: var(--muted);
+    margin-bottom: 0;
+    line-height: 1.45;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: clamp(8px, 1vw, 12px);
+    margin-bottom: 0;
+    flex-wrap: nowrap;
+  }
+  .stat {
+    background: var(--card);
+    flex: 1;
+    min-width: 0;
+    padding: clamp(12px, 1.6vh, 16px) 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  }
+  .stat .big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(16px, 2.5vh, 23px);
+    color: var(--pink);
+    line-height: 1.1;
+  }
+  .stat .lbl {
+    font-size: clamp(9.5px, 1.25vh, 11px);
+    color: var(--ink);
+    margin-top: 4px;
+    line-height: 1.25;
+  }
+
+  .row-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.5vh, 14px);
+    margin-top: 0;
+  }
+  .row-list.is-compact {
+    gap: clamp(8px, 1.1vh, 11px);
+  }
+  .row-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 0; }
+  .row-item .dot {
+    width: clamp(28px, 3.6vh, 32px);
+    height: clamp(28px, 3.6vh, 32px);
+    min-width: clamp(28px, 3.6vh, 32px);
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(13px, 1.7vh, 15px);
+  }
+  .row-item .txt b {
+    display: block;
+    font-size: clamp(12.5px, 1.55vh, 14px);
+    margin-bottom: 2px;
+    line-height: 1.25;
+  }
+  .row-item .txt span {
+    font-size: clamp(11.5px, 1.45vh, 13px);
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  table.dtable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(10px, 1.35vh, 11.5px);
+    margin-bottom: 0;
+    table-layout: fixed;
+  }
+  table.dtable + table.dtable {
+    margin-top: clamp(16px, 2.4vh, 22px);
+  }
+  table.dtable th, table.dtable td {
+    text-align: left;
+    padding: clamp(6px, 0.9vh, 8px) 6px;
+    border-bottom: 1px solid rgba(27,27,31,0.1);
+    vertical-align: top;
+    word-wrap: break-word;
+  }
+  table.dtable th { background: var(--ink); color: var(--paper); font-weight: 700; font-size: clamp(9.5px, 1.25vh, 10.5px); }
+  table.dtable td.hl { background: #FDE7EF; font-weight: 700; }
+  table.dtable th.hl { background: var(--pink); }
+
+  .pillars {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2.2vh, 20px);
+    min-height: 0;
+  }
+  .pillars.is-tight {
+    gap: clamp(10px, 1.5vh, 14px);
+  }
+  .pillar {
+    background: var(--card);
+    padding: clamp(14px, 1.8vh, 18px) clamp(14px, 1.4vw, 18px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  }
+  .pillar .picn {
+    width: clamp(28px, 3.6vh, 32px);
+    height: clamp(28px, 3.6vh, 32px);
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(13px, 1.7vh, 15px);
+    margin-bottom: 6px;
+  }
+  .pillar b { display: block; font-size: clamp(13px, 1.65vh, 14.5px); margin-bottom: 3px; }
+  .pillar span { font-size: clamp(11.5px, 1.45vh, 12.5px); color: var(--muted); line-height: 1.35; }
+
+  .receipt-img {
+    width: 100%;
+    max-width: min(220px, 42vw);
+    max-height: min(260px, 34vh);
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .ask-box {
+    background: var(--card);
+    padding: clamp(14px, 1.8vh, 18px) clamp(14px, 1.4vw, 18px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin-bottom: 0;
+  }
+  .ask-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: clamp(11.5px, 1.45vh, 13px);
+    padding: clamp(6px, 1vh, 8px) 0;
+    border-bottom: 1px dashed rgba(27,27,31,0.15);
+  }
+  .ask-row b { color: var(--pink); font-family: 'JetBrains Mono', monospace; font-size: clamp(9.5px, 1.25vh, 10.5px); letter-spacing: 0.04em; }
+
+  /* Citations always sit on the page floor */
+  .footnote {
+    flex: 0 0 auto;
+    font-size: clamp(9px, 1.2vh, 10px);
+    color: var(--muted);
+    line-height: 1.35;
+    margin-top: clamp(14px, 2.2vh, 20px);
+    padding-top: clamp(10px, 1.4vh, 14px);
+    border-top: 1px solid rgba(27,27,31,0.08);
+  }
+  .page.dark .footnote {
+    border-top-color: rgba(245,241,234,0.12);
+  }
+
+  .cover-wordmark { font-size: clamp(40px, 6.5vh, 58px); line-height: 1.1; }
+  .cover-wordmark span { background: var(--pink); color: #fff; padding: 0 10px; }
+
+  .cover-seal {
+    width: clamp(40px, 5vh, 46px);
+    height: clamp(40px, 5vh, 46px);
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    border: 2px dashed rgba(27,27,31,0.3);
+    margin-bottom: clamp(12px, 1.8vh, 18px);
+    font-size: clamp(16px, 2.2vh, 20px);
+    font-weight: 700;
+  }
+  .cover-kicker {
+    font-size: clamp(11px, 1.4vh, 12px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9a968c;
+    margin: clamp(8px, 1.1vh, 12px) 0 clamp(14px, 1.8vh, 20px);
+  }
+  .cover-lead {
+    font-size: clamp(16px, 2.2vh, 20px);
+    color: var(--paper);
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .cover-body {
+    font-size: clamp(12px, 1.45vh, 13px);
+    color: #9a968c;
+    max-width: 380px;
+    line-height: 1.45;
+  }
+  .cover-meta {
+    margin-top: clamp(16px, 2.4vh, 24px);
+    font-size: clamp(10px, 1.25vh, 10.5px);
+    color: #7d7972;
+    letter-spacing: 0.08em;
+  }
+  .avatar {
+    width: clamp(52px, 6.5vh, 62px);
+    height: clamp(52px, 6.5vh, 62px);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 18%;
+    flex-shrink: 0;
+  }
+  .team-hero {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(14px, 2vw, 18px);
+  }
+  .team-portrait {
+    width: clamp(96px, 18vh, 132px);
+    height: clamp(132px, 26vh, 180px);
+    object-fit: cover;
+    object-position: center 12%;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(27,27,31,0.12);
+  }
+  .team-copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.4vh, 14px);
+    min-width: 0;
+    padding-bottom: 2px;
+  }
+  .team-bullets {
+    gap: clamp(7px, 1vh, 10px);
+  }
+  .team-name { font-size: clamp(14px, 1.7vh, 15px); }
+  .close-line {
+    font-size: clamp(18px, 2.7vh, 25px);
+    line-height: 1.2;
+  }
+
+  .open-btn {
+    margin-top: clamp(16px, 2.4vh, 24px);
+    padding: clamp(10px, 1.3vh, 12px) 20px;
+  }
+
+  .nav {
+    display: flex; align-items: center; justify-content: center; gap: 20px;
+  }
+  .nav button {
+    background: var(--pink); color: #fff; border: none; border-radius: 30px;
+    width: 40px; height: 40px; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+  }
+  .nav button:hover:not(:disabled) { filter: brightness(1.06); transform: scale(1.04); }
+  .nav button:active:not(:disabled) { transform: scale(0.96); }
+  .nav button:disabled { background: #d8d3c5; color: var(--muted); cursor: default; }
+  .nav .indicator { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; }
+
+  /* Keep this in flow forever so the book never jumps when the copy fades out */
+  .hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    height: 14px;
+    line-height: 14px;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+  }
+  .hint.is-hidden { opacity: 0; }
+
+  .open-btn {
+    background: var(--pink); color: #fff; border: none; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    font-size: clamp(11.5px, 1.4vh, 12.5px);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .open-btn:hover { filter: brightness(1.08); }
+
+  /* Soften StPageFlip hard edges a bit toward paper */
+  .stf__parent { margin: 0 auto; }
+  .stf__block { box-shadow: 0 18px 40px rgba(27,27,31,0.12); }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2FWX8P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <div class="topbar">
+    <a href="../" class="mono">← Dossier</a>
+    <span class="badge mono">Vision, not current product, is marked as such</span>
+  </div>
+
+  <div class="viewer">
+    <div class="stage">
+      <div id="book">
+
+        <!-- Page 1: Cover -->
+        <div class="page dark" data-density="hard">
+          <div class="page-inner is-splash">
+            <div class="page-body">
+              <div class="cover-seal">✓</div>
+              <h1 class="display cover-wordmark"><span>Dossier</span></h1>
+              <div class="mono cover-kicker">for creators</div>
+              <p class="display cover-lead">The receipts brands can't argue with.</p>
+              <p class="cover-body">Financial infrastructure for the creator economy: rate intelligence, deal tracking, and a media kit built to prove your numbers.</p>
+              <div class="mono cover-meta">CONFIDENTIAL &nbsp;·&nbsp; INVESTOR OVERVIEW</div>
+              <button class="open-btn mono" id="openBtn" type="button">Open the file →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 2: The Insight -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">00 · The Insight</div>
+              <h2 class="ptitle display">Every service economy eventually builds a back office.</h2>
+            </header>
+            <div class="page-body">
+              <div class="row-list is-compact">
+                <div class="row-item"><div class="dot">💼</div><div class="txt"><b>Real estate agents</b><span>have comps</span></div></div>
+                <div class="row-item"><div class="dot">🪪</div><div class="txt"><b>Freelancers</b><span>have rate cards</span></div></div>
+                <div class="row-item"><div class="dot">🗂️</div><div class="txt"><b>Actors</b><span>have IMDb Pro and agents</span></div></div>
+                <div class="row-item"><div class="dot" style="background:var(--pink); color:#fff;">!</div><div class="txt"><b>Creators</b><span style="color:var(--pink); font-weight:700;">have screenshots and DMs.</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 3: Problem + Why Now -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">01 · The Problem, Why Now</div>
+              <h2 class="ptitle display">Creators run real businesses. Nothing proves it.</h2>
+            </header>
+            <div class="page-body">
+              <p class="sub">Rates are guessed. Deals live in DMs and screenshots.</p>
+              <div class="stat-row">
+                <div class="stat"><div class="big">207M</div><div class="lbl">active creators worldwide</div></div>
+                <div class="stat"><div class="big">48.7%</div><div class="lbl">earn under $10K a year</div></div>
+                <div class="stat"><div class="big">5.7%</div><div class="lbl">clear six figures</div></div>
+              </div>
+              <p class="sub">A $250B+ industry, still running on guesswork:</p>
+              <div class="stat-row">
+                <div class="stat"><div class="big" style="color:var(--ink);">$252.3B</div><div class="lbl">creator economy, 2025</div></div>
+                <div class="stat"><div class="big" style="color:var(--ink);">$32.55B</div><div class="lbl">influencer marketing spend</div></div>
+                <div class="stat"><div class="big" style="color:var(--ink);">20%+</div><div class="lbl">CAGR, major estimates</div></div>
+              </div>
+            </div>
+            <p class="footnote">Sources: DemandSage; Influencer Marketing Factory 2026; Grand View Research; Influencer Marketing Hub.</p>
+          </div>
+        </div>
+
+        <!-- Page 4: Solution -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">02 · The Solution</div>
+              <h2 class="ptitle display">Built around how creators actually get paid.</h2>
+            </header>
+            <div class="page-body">
+              <div class="pillars">
+                <div class="pillar"><div class="picn">📈</div><b>Rate intelligence</b><span>One true number for reach and engagement, pulled from every platform, not a guess.</span></div>
+                <div class="pillar"><div class="picn">🗃️</div><b>Deal pipeline</b><span>Every brand conversation tracked, plus a full history of every deal ever done.</span></div>
+                <div class="pillar"><div class="picn">🪪</div><b>Media kit</b><span>One shareable file a brand can open and trust: proof, not a pitch.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 5: Product -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">03 · Product</div>
+              <h2 class="ptitle display">One file. Proof, not a pitch.</h2>
+            </header>
+            <div class="page-body">
+              <img class="receipt-img product-shot" src="../assets/product-shot.jpg" alt="Dossier media kit product mockup" />
+              <p class="sub">Rate stays gated until a brand requests access. Deal stage shown at a glance. Every figure pulled from connected accounts, not self-reported.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 6: Competitive + Business Model -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">04 · Where The Budget Goes</div>
+              <h2 class="ptitle display">Adjacent competitors, same slot, same budget.</h2>
+            </header>
+            <div class="page-body">
+              <table class="dtable">
+                <tr><th></th><th class="hl">Dossier</th><th>Linktree</th><th>Stan</th><th>Beacons</th></tr>
+                <tr><td>Rate benchmarking</td><td class="hl">Yes</td><td>No</td><td>No</td><td>No</td></tr>
+                <tr><td>Deal tracking</td><td class="hl">Yes</td><td>No</td><td>No</td><td>No</td></tr>
+                <tr><td>Monthly price</td><td class="hl">Free / $12–19</td><td>Free–$35</td><td>$29–99</td><td>Free–$50</td></tr>
+                <tr><td>Fee on deals</td><td class="hl">0%</td><td>9–12%</td><td>0%</td><td>up to 9%</td></tr>
+              </table>
+            </div>
+            <p class="footnote">Linktree: TechCrunch, May 2024 (50M+ users). Stan Store, Beacons: company sites, 2026 comparison coverage.</p>
+          </div>
+        </div>
+
+        <!-- Page 7: Why We Win -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">05 · Why We Win</div>
+              <h2 class="ptitle display">Why now, why us.</h2>
+            </header>
+            <div class="page-body">
+              <div class="row-list">
+                <div class="row-item"><div class="dot">📈</div><div class="txt"><b>Affordable now</b><span>A language model can do personalized rate benchmarking for a fraction of what a human analyst cost.</span></div></div>
+                <div class="row-item"><div class="dot">👥</div><div class="txt"><b>Data that compounds</b><span>Every creator who connects sharpens the benchmark for the next one. A late competitor is behind on data, not just features.</span></div></div>
+                <div class="row-item"><div class="dot">🗂️</div><div class="txt"><b>A different job</b><span>Link-in-bio tools compete for the bio-link slot. Dossier competes to prove what a creator is worth.</span></div></div>
+                <div class="row-item"><div class="dot">🪪</div><div class="txt"><b>Retrofitting is hard</b><span>Shipping a calculator is a sprint. Becoming a product creators trust with financial data is a different relationship.</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 8: GTM -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">06 · Go-To-Market</div>
+              <h2 class="ptitle display">Where creators already are.</h2>
+            </header>
+            <div class="page-body">
+              <div class="row-list">
+                <div class="row-item"><div class="dot" style="background:var(--pink); color:#fff;">🤝</div><div class="txt"><b>Creator communities</b><span>Legal and business programs where professionalizing is already the topic.</span></div></div>
+                <div class="row-item"><div class="dot" style="background:var(--pink); color:#fff;">📣</div><div class="txt"><b>Direct-to-creator content</b><span>Newsletter and podcast channels reaching creators thinking about monetization.</span></div></div>
+                <div class="row-item"><div class="dot" style="background:var(--pink); color:#fff;">🚀</div><div class="txt"><b>Tool-native integrations</b><span>Connects via OAuth where creators already work: Beehiiv, YouTube.</span></div></div>
+                <div class="row-item"><div class="dot" style="background:var(--pink); color:#fff;">$</div><div class="txt"><b>Paid signup acquisition</b><span>Targeted paid social at an estimated $4 blended cost per signup.</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 9: Financial Model -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">07 · Financial Model</div>
+              <h2 class="ptitle display">What this can realistically make.</h2>
+            </header>
+            <div class="page-body">
+              <table class="dtable">
+                <tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th></tr>
+                <tr><td>Free signups</td><td>25,000</td><td>100,000</td><td>300,000</td></tr>
+                <tr><td>Conversion</td><td>3%</td><td>4%</td><td>5%</td></tr>
+                <tr><td>Paying subs</td><td>750</td><td>4,000</td><td>15,000</td></tr>
+                <tr><td class="hl">ARR</td><td class="hl">$135K</td><td class="hl">$720K</td><td class="hl">$2.7M</td></tr>
+              </table>
+              <table class="dtable">
+                <tr><th>Unit economics</th><th></th></tr>
+                <tr><td>Gross margin</td><td>~80%</td></tr>
+                <tr><td>Monthly churn (est.)</td><td>~6%</td></tr>
+                <tr><td>LTV : CAC (Y1→Y3)</td><td>1.5x → 2.5x</td></tr>
+                <tr><td>Burn multiple (Y1)</td><td>~2.0x</td></tr>
+              </table>
+            </div>
+            <p class="footnote">Modeled bottom-up from ChartMogul/ProductLed 2026 conversion benchmarks and Anthropic 2026 API pricing, not top-down market share.</p>
+          </div>
+        </div>
+
+        <!-- Page 10: What This Becomes -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">08 · Vision, Not Current Product</div>
+              <h2 class="ptitle display">What this becomes.</h2>
+            </header>
+            <div class="page-body">
+              <div class="pillars is-tight">
+                <div class="pillar">
+                  <div class="mono" style="font-size:clamp(9.5px,1.25vh,10px); color:var(--pink); font-weight:700; margin-bottom:4px;">PHASE 1 · THIS RAISE</div>
+                  <b>A creator-side tool</b>
+                  <span>Rate intelligence, deal tracking, a verified kit. Subscription revenue only.</span>
+                </div>
+                <div class="pillar">
+                  <div class="mono" style="font-size:clamp(9.5px,1.25vh,10px); color:var(--pink); font-weight:700; margin-bottom:4px;">PHASE 2 · POST-PMF</div>
+                  <b>A verified layer brands pay into</b>
+                  <span>Once enough creators are verified here, brands have a real reason to show up too.</span>
+                </div>
+              </div>
+            </div>
+            <p class="footnote">Not hypothetical: Linktree ran single-sided for nine years before adding a brand-facing, commission-based product, only after 50M+ users.</p>
+          </div>
+        </div>
+
+        <!-- Page 11: Team -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">09 · Team</div>
+              <h2 class="ptitle display">Built by someone who's lived the problem.</h2>
+            </header>
+            <div class="page-body">
+              <div class="team-hero">
+                <img class="team-portrait" src="../assets/fee-avatar.jpg" alt="Fee Wiley">
+                <div class="team-copy">
+                  <b class="team-name">Fee Wiley, Founder</b>
+                  <div class="row-list team-bullets">
+                    <div class="row-item"><div class="dot" style="width:8px;height:8px;min-width:8px;background:var(--pink);"></div><div class="txt"><span>7+ years across data and analytics engineering</span></div></div>
+                    <div class="row-item"><div class="dot" style="width:8px;height:8px;min-width:8px;background:var(--pink);"></div><div class="txt"><span>Firsthand experience in the modeling and talent economy, the exact problem Dossier solves</span></div></div>
+                    <div class="row-item"><div class="dot" style="width:8px;height:8px;min-width:8px;background:var(--pink);"></div><div class="txt"><span>Completing an MS in Applied Sciences at the University of Pennsylvania</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ask-box">
+                <div class="mono" style="font-size:clamp(9.5px,1.25vh,10px); color:var(--pink); font-weight:700;">SOLO FOUNDER, DELIBERATELY</div>
+                <p style="font-size:clamp(11.5px,1.45vh,12.5px); color:var(--muted); margin-top:6px; line-height:1.4;">First hire is funded by this raise, not deferred to a future round.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 12: The Ask -->
+        <div class="page">
+          <div class="page-inner">
+            <header class="page-header">
+              <div class="eyebrow mono">10 · The Ask</div>
+              <h2 class="ptitle display">The ask.</h2>
+            </header>
+            <div class="page-body">
+              <div class="ask-box">
+                <div class="ask-row"><b>RAISE</b><span>$500,000</span></div>
+                <div class="ask-row"><b>STAGE</b><span>Pre-seed, bootstrapped</span></div>
+                <div class="ask-row"><b>RUNWAY</b><span>0 → ~18 months</span></div>
+                <div class="ask-row" style="border-bottom:none;"><b>USE OF FUNDS</b><span>80% team/product, 20% marketing</span></div>
+              </div>
+              <p class="sub">Milestone: ship a working MVP and reach the first several hundred paying creators before returning for a seed round.</p>
+            </div>
+            <p class="footnote">Proposed and benchmarked against 2026 pre-seed data (VCBeast, Waveup, Allied Venture Partners). Not yet negotiated with any investor.</p>
+          </div>
+        </div>
+
+        <!-- Page 13: Close -->
+        <div class="page dark" data-density="hard">
+          <div class="page-inner is-splash">
+            <div class="page-body">
+              <p class="display close-line" style="color:var(--paper); margin-bottom:6px;">The creator economy grew up.</p>
+              <p class="display close-line" style="color:var(--pink); margin-bottom: clamp(18px, 2.4vh, 26px);">It's time its back office did too.</p>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="cover-seal" style="width:34px; height:34px; font-size:14px; margin-bottom:0;">✓</div>
+                <span class="mono" style="font-size:clamp(11px,1.4vh,12px); letter-spacing:0.1em; color:#9a968c;">DOSSIER &nbsp;·&nbsp; FOR CREATORS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="hint mono" id="hint">Drag a corner, or use ← →</div>
+    <div class="nav">
+      <button id="prevBtn" aria-label="Previous page">‹</button>
+      <span class="indicator" id="indicator">01 / 13</span>
+      <button id="nextBtn" aria-label="Next page">›</button>
+    </div>
+  </div>
+
+<script src="../js/page-flip.browser.min.js"></script>
+<script>
+  const bookEl = document.getElementById('book');
+  const indicator = document.getElementById('indicator');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const hint = document.getElementById('hint');
+  const openBtn = document.getElementById('openBtn');
+  const stage = document.querySelector('.stage');
+
+  function pageSize() {
+    const maxW = Math.min(620, stage.clientWidth);
+    const maxH = Math.max(420, stage.clientHeight - 8);
+    let width = maxW;
+    let height = Math.round(width * 1.28);
+    if (height > maxH) {
+      height = maxH;
+      width = Math.round(height / 1.28);
+    }
+    return { width, height };
+  }
+
+  const size = pageSize();
+  const pageFlip = new St.PageFlip(bookEl, {
+    width: size.width,
+    height: size.height,
+    size: 'fixed',
+    minWidth: 280,
+    maxWidth: 680,
+    minHeight: 380,
+    maxHeight: 900,
+    drawShadow: true,
+    flippingTime: 520,
+    usePortrait: true,
+    startZIndex: 5,
+    autoSize: false,
+    maxShadowOpacity: 0.45,
+    showCover: true,
+    mobileScrollSupport: true,
+    clickEventForward: true,
+    useMouseEvents: true,
+    swipeDistance: 30,
+    showPageCorners: true,
+    disableFlipByClick: false,
+  });
+
+  pageFlip.loadFromHTML(document.querySelectorAll('#book .page'));
+
+  const total = pageFlip.getPageCount();
+  let busy = false;
+  let pending = 0; // queued turns: +next / -prev
+
+  function updateUI(pageIndex) {
+    const projected = pageIndex + pending;
+    indicator.textContent = String(pageIndex + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    prevBtn.disabled = projected <= 0;
+    nextBtn.disabled = projected >= total - 1;
+    if (pageIndex > 0) hint.classList.add('is-hidden');
+  }
+
+  function drainQueue() {
+    if (busy || pending === 0) return;
+
+    // Catch up instantly if several taps stacked, then animate the last step
+    while (Math.abs(pending) > 1) {
+      if (pending > 0) {
+        pageFlip.turnToNextPage();
+        pending--;
+      } else {
+        pageFlip.turnToPrevPage();
+        pending++;
+      }
+    }
+
+    busy = true;
+    if (pending > 0) {
+      pending--;
+      pageFlip.flipNext();
+    } else if (pending < 0) {
+      pending++;
+      pageFlip.flipPrev();
+    } else {
+      busy = false;
+    }
+    updateUI(pageFlip.getCurrentPageIndex());
+  }
+
+  function goNext() {
+    const pageIndex = pageFlip.getCurrentPageIndex();
+    if (pageIndex + pending >= total - 1) return;
+    if (busy) {
+      pending++;
+      updateUI(pageIndex);
+      return;
+    }
+    busy = true;
+    pageFlip.flipNext();
+  }
+
+  function goPrev() {
+    const pageIndex = pageFlip.getCurrentPageIndex();
+    if (pageIndex + pending <= 0) return;
+    if (busy) {
+      pending--;
+      updateUI(pageIndex);
+      return;
+    }
+    busy = true;
+    pageFlip.flipPrev();
+  }
+
+  pageFlip.on('init', (e) => {
+    busy = false;
+    pending = 0;
+    updateUI(e.data.page);
+  });
+
+  pageFlip.on('flip', (e) => {
+    busy = false;
+    updateUI(e.data);
+    drainQueue();
+  });
+
+  pageFlip.on('changeState', (e) => {
+    if (e.data === 'read') {
+      busy = false;
+      updateUI(pageFlip.getCurrentPageIndex());
+      drainQueue();
+    } else if (e.data === 'flipping') {
+      busy = true;
+    }
+  });
+
+  prevBtn.addEventListener('click', goPrev);
+  nextBtn.addEventListener('click', goNext);
+  if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goNext();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goNext();
+    if (e.key === 'ArrowLeft') goPrev();
+  });
+
+  updateUI(0);
+</script>
+
+</body>
+</html>

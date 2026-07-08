@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KT2FWX8P');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossier | for creators</title>
+<meta name="description" content="Join the Dossier waitlist. Rate intelligence, deal tracking, and a media kit built to prove your numbers.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;700&display=swap');
+  :root { --paper:#F5F1EA; --card:#FFFFFF; --ink:#1B1B1F; --pink:#FF2D78; --gold:#E8B930; --muted:#6B6860; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2.4vh, 28px) 24px;
+    overflow: hidden;
+  }
+  .display { font-family: 'Space Grotesk', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .seal {
+    width: clamp(36px, 5.5vh, 52px);
+    height: clamp(36px, 5.5vh, 52px);
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed rgba(27,27,31,0.3);
+    margin-bottom: clamp(10px, 1.8vh, 18px);
+    font-size: clamp(16px, 2.4vh, 22px);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  h1.wordmark {
+    font-size: clamp(42px, 9vh, 96px);
+    line-height: 1.1;
+    margin-bottom: clamp(10px, 1.6vh, 18px);
+    flex-shrink: 0;
+  }
+  h1.wordmark span {
+    background: var(--pink);
+    color: #fff;
+    padding: 2px 16px;
+    display: inline-block;
+  }
+  .tag {
+    display: inline-block;
+    font-size: clamp(11px, 1.5vh, 13px);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    font-weight: 700;
+    padding: 6px 14px;
+    margin: 0 0 clamp(12px, 2vh, 20px);
+    flex-shrink: 0;
+  }
+  p.lead {
+    color: var(--muted);
+    font-size: clamp(12.5px, 1.8vh, 15px);
+    max-width: 380px;
+    margin-bottom: clamp(12px, 2.4vh, 24px);
+    text-align: center;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  form {
+    background: var(--card);
+    width: 100%;
+    max-width: 380px;
+    padding: clamp(16px, 2.6vh, 26px);
+    box-shadow: 0 10px 24px rgba(27,27,31,0.08);
+    flex-shrink: 0;
+  }
+  label {
+    display: block;
+    font-size: clamp(10px, 1.35vh, 11px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 700;
+    margin-bottom: clamp(4px, 0.7vh, 6px);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  input {
+    width: 100%;
+    padding: clamp(8px, 1.3vh, 11px) 12px;
+    margin-bottom: clamp(10px, 1.8vh, 16px);
+    border: 1px solid rgba(27,27,31,0.15);
+    background: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1.7vh, 14px);
+    color: var(--ink);
+  }
+  input:focus { outline: none; border-color: var(--pink); }
+  input.invalid { border-color: var(--pink); }
+  .field-error {
+    display: none;
+    font-size: 11px;
+    color: var(--pink);
+    margin: -8px 0 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .field-error.is-visible { display: block; }
+  button {
+    width: 100%;
+    padding: clamp(10px, 1.5vh, 13px);
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(11.5px, 1.5vh, 12.5px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  button:disabled { background: #c9c4b8; cursor: default; }
+
+  .success {
+    display: none;
+    text-align: center;
+    max-width: 380px;
+    flex-shrink: 0;
+  }
+  .success .seal { margin: 0 auto clamp(10px, 1.6vh, 16px); }
+  .success h2 {
+    font-size: clamp(18px, 2.6vh, 22px);
+    margin-bottom: clamp(6px, 1vh, 8px);
+  }
+  .success p {
+    color: var(--muted);
+    font-size: clamp(12.5px, 1.7vh, 14px);
+  }
+
+  .brand-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+    margin-bottom: clamp(12px, 2vh, 20px);
+  }
+  .brand-link .tag { margin-bottom: 0; }
+
+  .back {
+    margin-top: clamp(12px, 2.4vh, 24px);
+    font-size: clamp(11px, 1.5vh, 12px);
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  @media (max-height: 640px) {
+    p.lead { display: none; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2FWX8P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <a class="brand-link" href="../" aria-label="Back to Dossier home">
+    <div class="seal">✓</div>
+    <h1 class="wordmark display"><span>Dossier</span></h1>
+    <div class="tag mono">for creators</div>
+  </a>
+  <p class="lead">Rate intelligence, deal tracking, and a media kit built to prove your numbers. Join the waitlist, first access when it's ready.</p>
+
+  <form id="waitlistForm" novalidate>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+      inputmode="email"
+      placeholder="you@email.com"
+      maxlength="254"
+    >
+    <div class="field-error" id="emailError">Enter a valid email address.</div>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" required placeholder="City, Country" maxlength="120">
+    <div class="field-error" id="locationError">Enter your city and country.</div>
+
+    <label for="followers">Follower count (approx.)</label>
+    <input
+      type="text"
+      id="followers"
+      name="followers"
+      required
+      inputmode="numeric"
+      pattern="[0-9]+"
+      placeholder="e.g. 24000"
+      maxlength="10"
+      autocomplete="off"
+    >
+    <div class="field-error" id="followersError">Use numbers only, no commas.</div>
+
+    <button type="submit" id="submitBtn">Join the waitlist →</button>
+  </form>
+
+  <div class="success" id="successMsg">
+    <div class="seal">✓</div>
+    <h2 class="display">You're on the list.</h2>
+    <p>We'll be in touch when it's ready.</p>
+  </div>
+
+  <a class="back mono" href="../">← Back to Dossier</a>
+
+<script>
+  // Deployed Google Apps Script Web App URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzV_H1585Qs__s64lPJVR0SA1Tb_uWFFJ_X7tC6iLpMk94y3d58Q4jaBMShEWgLCZeUMQ/exec";
+
+  const form = document.getElementById('waitlistForm');
+  const btn = document.getElementById('submitBtn');
+  const emailInput = document.getElementById('email');
+  const locationInput = document.getElementById('location');
+  const followersInput = document.getElementById('followers');
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  const FOLLOWERS_RE = /^[0-9]+$/;
+
+  function showSuccess() {
+    form.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  function setError(input, errorEl, message, show) {
+    input.classList.toggle('invalid', show);
+    errorEl.textContent = message;
+    errorEl.classList.toggle('is-visible', show);
+  }
+
+  function validateEmail() {
+    const value = emailInput.value.trim();
+    const ok = EMAIL_RE.test(value);
+    setError(
+      emailInput,
+      document.getElementById('emailError'),
+      'Enter a valid email address.',
+      !ok
+    );
+    return ok ? value : null;
+  }
+
+  function validateLocation() {
+    const value = locationInput.value.trim();
+    const ok = value.length >= 2;
+    setError(
+      locationInput,
+      document.getElementById('locationError'),
+      'Enter your city and country.',
+      !ok
+    );
+    return ok ? value : null;
+  }
+
+  function validateFollowers() {
+    // Strip commas/spaces if pasted, then require pure digits
+    const cleaned = followersInput.value.replace(/[,\s]/g, '');
+    if (cleaned !== followersInput.value) followersInput.value = cleaned;
+    const ok = FOLLOWERS_RE.test(cleaned) && Number(cleaned) > 0;
+    setError(
+      followersInput,
+      document.getElementById('followersError'),
+      'Use numbers only, no commas.',
+      !ok
+    );
+    return ok ? cleaned : null;
+  }
+
+  // Keep follower field numeric as the user types
+  followersInput.addEventListener('input', function () {
+    const cleaned = followersInput.value.replace(/[^0-9]/g, '');
+    if (followersInput.value !== cleaned) followersInput.value = cleaned;
+    setError(followersInput, document.getElementById('followersError'), '', false);
+  });
+
+  emailInput.addEventListener('blur', validateEmail);
+  locationInput.addEventListener('blur', validateLocation);
+  followersInput.addEventListener('blur', validateFollowers);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = validateEmail();
+    const location = validateLocation();
+    const followers = validateFollowers();
+    if (!email || !location || !followers) return;
+
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
+      alert('Form endpoint not configured yet.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const params = new URLSearchParams();
+    params.append('email', email);
+    params.append('location', location);
+    params.append('followers', followers);
+    params.append('timestamp', new Date().toISOString());
+
+    const sent = fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: params,
+      keepalive: true,
+    }).catch(function () {
+      try {
+        navigator.sendBeacon(SCRIPT_URL, params);
+      } catch (err) {}
+    });
+
+    setTimeout(function () {
+      showSuccess();
+    }, 280);
+
+    void sent;
+  });
+</script>
+
+</body>
+</html>
